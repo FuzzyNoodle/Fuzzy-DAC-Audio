@@ -24,11 +24,17 @@ void FuzzyDACAudio::begin()
 	analogWrite(A0, DAC_8_NEUTRAL<< LEFT_SHIFT_BIT);
 
 	//active 8002D
-	pinMode(SHUTDOWN_PIN, OUTPUT);
-	setAmplifier(OFF);
+	//pinMode(SHUTDOWN_PIN, OUTPUT);
+	//setAmplifier(OFF);
 
 	//configure the TC
 	tcConfigure(_sampleRate);
+}
+
+void FuzzyDACAudio::setShutdownPin(uint8_t pin)
+{
+	shutdownPin = pin;
+	shutdownEnabled = true;
 }
 
 void FuzzyDACAudio::tcConfigure(uint32_t sampleRate)
@@ -262,7 +268,11 @@ extern "C" {
 }
 #endif
 
+
 void FuzzyDACAudio::setAmplifier(bool status)
 {
-	digitalWrite(SHUTDOWN_PIN, !status);
+	if(shutdownEnabled)
+	{
+		digitalWrite(shutdownPin, !status);
+	}
 }

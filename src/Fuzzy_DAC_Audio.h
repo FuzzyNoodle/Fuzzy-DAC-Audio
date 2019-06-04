@@ -19,7 +19,7 @@ const int_fast8_t SampleBits = 8;
 
 #define DAC_8_NEUTRAL 128
 #define DEFAULT_SAMPLE_RATE 22050
-#define SHUTDOWN_PIN 4
+//#define SHUTDOWN_PIN 4
 #define ON true
 #define OFF false
 #define LEFT_SHIFT_BIT 2
@@ -50,6 +50,7 @@ class FuzzyDACAudio
 public:
 	FuzzyDACAudio();
 	void begin();
+	void setShutdownPin(uint8_t pin);
 	void play8BitArray(const uint8_t* arrayName, uint32_t arraySize);
 	void interruptHandler();
 	bool isPlaying();
@@ -67,6 +68,8 @@ private:
 	uint32_t __arraySize;
 	const uint8_t* __arrayName;
 	bool volatile __isPlaying = false;
+	uint8_t shutdownPin;
+	bool shutdownEnabled = false;
 
 	inline int _get_bit(uint_fast32_t pos, boolean autoLoadOnBit0 = false);
 	//const uint8_t* __SoundData;
