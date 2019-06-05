@@ -19,13 +19,7 @@ FuzzyDACAudio::FuzzyDACAudio()
 void FuzzyDACAudio::begin()
 {
 	//configure the dac
-	//pinMode(A0, OUTPUT);
-	//analogWriteResolution(8);
 	analogWrite(A0, DAC_8_NEUTRAL<< LEFT_SHIFT_BIT);
-
-	//active 8002D
-	//pinMode(SHUTDOWN_PIN, OUTPUT);
-	//setAmplifier(OFF);
 
 	//configure the TC
 	tcConfigure(_sampleRate);
@@ -34,6 +28,8 @@ void FuzzyDACAudio::begin()
 void FuzzyDACAudio::setShutdownPin(uint8_t pin)
 {
 	shutdownPin = pin;
+	pinMode(shutdownPin, OUTPUT);
+	setAmplifier(OFF);
 	shutdownEnabled = true;
 }
 
@@ -58,7 +54,6 @@ void FuzzyDACAudio::tcConfigure(uint32_t sampleRate)
 	TC5->COUNT16.CC[0].reg = (uint16_t)(SystemCoreClock / sampleRate - 1);
 	while (tcIsSyncing());
 
-	//SERIAL_OBJECT << "COUNT16.CC[0].reg = " << TC5->COUNT16.CC[0].reg << endl;
 
 	// Configure interrupt request
 	NVIC_DisableIRQ(TC5_IRQn);
@@ -78,8 +73,7 @@ void FuzzyDACAudio::play8BitArray(const uint8_t* arrayName, uint32_t arraySize)
 	__nowPlayingSampleIndex = 0;
 	__arraySize = arraySize;
 	__arrayName = arrayName;
-	//SERIAL_OBJECT << "array address = " << (uint32_t)__arrayName << endl;
-	//SERIAL_OBJECT << "Size of array = " << arraySize << endl;
+
 
 	tcStartCounter();
 
@@ -146,7 +140,6 @@ bool FuzzyDACAudio::tcIsSyncing()
 void FuzzyDACAudio::tcStartCounter()
 {
 	// Enable TC
-
 	TC5->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;
 	while (tcIsSyncing());
 }

@@ -2,24 +2,12 @@
 #ifndef __ARDUINO_SOUND_DATA__
 #define __ARDUINO_SOUND_DATA__
 
-#define NUMBER_OF_SOUND_TRACKS 10
 
 /*
-This struct stores the track data and pointers, which are set in the begin() function.
-When adding tracks, need to
-- change the NUMBER_OF_SOUND_TRACKS
-- modify HuffDict[] to HuffDict?[], where ? is a number
-- modify SoundDataBits to SoundDataBits?
-- modify SoundData to SoundData?
-- add related configuration in begin()
-- number is assigned starting from 0
-
+Follow the instructions at https://github.com/hozuki/yusaino-audio to create the sound array.
+Copy and rename the array data here. (Three entries for each sound track.
 */
-struct {
-	const int_fast16_t *_HuffDict;
-	uint_fast32_t _SoundDataBits;
-	const uint8_t * _SoundData;
-} arrayMetadata[NUMBER_OF_SOUND_TRACKS];
+
 
 const int_fast16_t HuffDict_Yawing[478] = {
 	388, 256, 220, 55, 10, 0, 7, 7, 4, 0, -20, 0, 20, 0, 14, 43, 0, -7, 40, 37, 34, 4, 0, -35, 0, 36, 28, 19, 0, -44, 16, 13, 0, -61, 10, 4, 0, 91, 0, 80,

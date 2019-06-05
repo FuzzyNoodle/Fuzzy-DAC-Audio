@@ -7,4 +7,4 @@ Audio data is stored as a C++ array in the sketch (in the sounddata.h file), no 
 
 The wav file compression is done according this great [Yusaino-Audio](https://github.com/hozuki/yusaino-audio) library. With around 50% compression ratio, approximately 15~20 seconds of sound track can be stored in the 256k flash memory, while leaving some ~50k of program space.
 
-The playback is non-blocking, interrupt driven.
+The playback is non-blocking, interrupt driven. Also refer to the [AudioZero](https://github.com/arduino-libraries/AudioZero/blob/master/src/AudioZero.cpp) for the playback code.
