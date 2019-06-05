@@ -19,7 +19,6 @@ const int_fast8_t SampleBits = 8;
 
 #define DAC_8_NEUTRAL 128
 #define DEFAULT_SAMPLE_RATE 22050
-//#define SHUTDOWN_PIN 4
 #define ON true
 #define OFF false
 #define LEFT_SHIFT_BIT 2
